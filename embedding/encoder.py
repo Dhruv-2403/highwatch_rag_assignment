@@ -7,7 +7,7 @@ from typing import TYPE_CHECKING
 
 import numpy as np
 from sentence_transformers import SentenceTransformer
-from tqdm import tqxdm
+from tqdm import tqdm
 
 from config import settings
 
@@ -33,7 +33,7 @@ def encode(texts: list[str], show_progress: bool = False) -> np.ndarray:
     all_embeddings: list[np.ndarray] = []
 
     batches = [texts[i : i + batch_size] for i in range(0, len(texts), batch_size)]
-    iterator = tqxdm(batches, desc="Embedding", unit="batch") if show_progress else batches
+    iterator = tqdm(batches, desc="Embedding", unit="batch") if show_progress else batches
 
     for batch in iterator:
         emb = model.encode(
